@@ -97,7 +97,11 @@ export default async function PRSelectorPage({ params }: { params: Promise<{ own
                     reviewId: review.id,
                     repositoryId: dbPr.repositoryId,
                     pullRequestId: dbPr.id,
-                    userId: session.user.id
+                    userId: session.user.id,
+                    owner: owner,
+                    repo: repo,
+                    pull_number: pr.number,
+                    githubToken: token
                   });
 
                   redirect(`/dashboard/review/${review.id}`);
