@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import prisma from "@/lib/db";
 import { GitHubService } from "@/lib/github";
+import { getGitHubToken } from "@/lib/auth-utils";
 
 export async function publishComment(reviewId: string, markdown: string) {
   const session = await auth.api.getSession({
@@ -33,12 +34,15 @@ export async function publishComment(reviewId: string, markdown: string) {
 
   const [owner, repo] = review.pullRequest.repository.fullName.split('/');
   
-  const token = process.env.GITHUB_DUMMY_TOKEN || "mock-token";
+  const token = await getGitHubToken();
+  if (!token) {
+    return { success: false, error: "GitHub account not linked or missing token" };
+  }
+  
   const github = new GitHubService(token);
 
   try {
     // In a real scenario with a valid token, this will hit GitHub.
-    // For local dev/demo without a real token, it will throw unless mocked.
     await github.postGeneralComment(
       owner,
       repo,

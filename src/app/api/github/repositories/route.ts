@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { GitHubService } from "@/lib/github";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { getGitHubToken } from "@/lib/auth-utils";
 
 export async function GET() {
   const session = await auth.api.getSession({
@@ -12,12 +13,10 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Retrieve the user's Github account token
-  // Better Auth stores provider tokens in the Account table if configured
-  // Note: For full implementation, ensure you request the access token from the DB.
-  
-  // Example dummy token until real DB sync
-  const token = process.env.GITHUB_DUMMY_TOKEN || "mock-token";
+  const token = await getGitHubToken();
+  if (!token) {
+    return NextResponse.json({ error: "GitHub account not linked" }, { status: 403 });
+  }
   
   try {
     const github = new GitHubService(token);

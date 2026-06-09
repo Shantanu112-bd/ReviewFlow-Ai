@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import prisma from "@/lib/db";
 import { reviewQueue } from "@/lib/queue/queues";
 
+import { getGitHubToken } from "@/lib/auth-utils";
+
 export default async function PRSelectorPage({ params }: { params: Promise<{ owner: string, repo: string }> }) {
   const { owner, repo } = await params;
   
@@ -16,7 +18,9 @@ export default async function PRSelectorPage({ params }: { params: Promise<{ own
 
   if (!session) redirect('/login');
 
-  const token = process.env.GITHUB_DUMMY_TOKEN || "mock-token";
+  const token = await getGitHubToken();
+  if (!token) redirect('/login'); // Force login to get token
+
   const github = new GitHubService(token);
   
   let prs: any[] = [];
