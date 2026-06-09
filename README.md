@@ -12,7 +12,11 @@
 
 [Features](#-features) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Deployment](#-deployment)
 
-</div>
+</div> 
+---
+
+## 🚀 System Status: Active Testing
+This repository is currently running end-to-end integration tests using **ReviewFlow AI**. The multi-agent orchestrator is active and analyzing pull requests for performance bottlenecks, security vulnerabilities, and code quality compliance.
 
 ---
 
