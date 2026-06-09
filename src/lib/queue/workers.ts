@@ -45,7 +45,7 @@ export const createReviewWorker = () => {
     }
 
     return { status: 'spawned', agentCount: agentNames.length };
-  }, { connection: redisConnection });
+  }, { connection: redisConnection as any });
 };
 
 export const createAgentWorker = () => {
@@ -87,5 +87,5 @@ export const createAgentWorker = () => {
     }
 
     return { status: 'completed' };
-  }, { connection: redisConnection });
+  }, { connection: redisConnection as any });
 };
