@@ -106,7 +106,7 @@ export default async function PRSelectorPage({ params }: { params: Promise<{ own
 
                   redirect(`/dashboard/review/${review.id}`);
                 }}>
-                  <Button type="submit" variant="outline" className="border-neutral-700 hover:bg-neutral-800 text-white">
+                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6">
                     Start Review
                   </Button>
                 </form>

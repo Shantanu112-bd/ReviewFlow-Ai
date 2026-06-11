@@ -19,7 +19,7 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button className="w-full" onClick={handleGithubLogin}>
+          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 text-lg" onClick={handleGithubLogin}>
             Sign in with GitHub
           </Button>
         </CardContent>
