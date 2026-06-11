@@ -1,7 +1,7 @@
 import { Queue } from 'bullmq';
 import { redisConnection, QUEUE_NAMES } from './config';
 
-export const reviewQueue = new Queue(QUEUE_NAMES.REVIEW, {
+const createReviewQueue = () => new Queue(QUEUE_NAMES.REVIEW, {
   connection: redisConnection as any,
   defaultJobOptions: {
     attempts: 3,
@@ -12,7 +12,7 @@ export const reviewQueue = new Queue(QUEUE_NAMES.REVIEW, {
   },
 });
 
-export const agentQueue = new Queue(QUEUE_NAMES.AGENT, {
+const createAgentQueue = () => new Queue(QUEUE_NAMES.AGENT, {
   connection: redisConnection as any,
   defaultJobOptions: {
     attempts: 3,
@@ -22,3 +22,16 @@ export const agentQueue = new Queue(QUEUE_NAMES.AGENT, {
     },
   },
 });
+
+declare global {
+  var reviewQueueGlobal: undefined | ReturnType<typeof createReviewQueue>;
+  var agentQueueGlobal: undefined | ReturnType<typeof createAgentQueue>;
+}
+
+export const reviewQueue = globalThis.reviewQueueGlobal ?? createReviewQueue();
+export const agentQueue = globalThis.agentQueueGlobal ?? createAgentQueue();
+
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.reviewQueueGlobal = reviewQueue;
+  globalThis.agentQueueGlobal = agentQueue;
+}
