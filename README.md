@@ -16,10 +16,6 @@
 
 ---
 
-## 💡 What is ReviewFlow AI?
-
-ReviewFlow AI is an advanced, automated Pull Request review system that uses an **Orchestrated Multi-Agent AI Architecture** to perform deep codebase analysis. Instead of relying on a single AI prompt, ReviewFlow spawns a cluster of specialized agents that analyze a Pull Request concurrently:
-
 1. 🛡️ **Security Agent**: Scans for vulnerabilities, OWASP violations, and secret leaks.
 2. ⚡ **Performance Agent**: Identifies algorithmic bottlenecks, memory leaks, and inefficient queries.
 3. 💎 **Quality Agent**: Enforces clean code principles, DRY, and syntax best practices.
